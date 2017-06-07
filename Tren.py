@@ -33,6 +33,7 @@ class Tren:
         self.next=next  
         self.prev=prev
         self.valor=valor
+        self.largo=0
         
     def get_num(self):
         return self.num
@@ -58,9 +59,9 @@ class Tren:
         return self.vag
     def set_hora(self,vag):
         self.vag=vag
-
+            
 class Maquina:
-    def __init__(nume,cap):
+    def __init__(self,nume,cap):
         nume=nume
         cap=cap   
     def get_nume(self):
@@ -74,7 +75,7 @@ class Maquina:
         self.cap=cap
 
 class Vagon:
-    def Tren__init__(num,cant,next=None,prev=None):
+    def Tren__init__(self,num,cant,next=None,prev=None):
         numo=numo
         cant=cant  
     def get_numo(self):
