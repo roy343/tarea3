@@ -24,12 +24,15 @@ boton5 = Button(ventana, text="Salida de tren", bg = "#000000", fg = "#FFFFFF").
 boton6 = Button(ventana, text="Llegada de tren", bg = "#000000", fg = "#FFFFFF").place(x=2,y=153)
 
 class Tren:
-    def __init__(self,num,ruta,hora,maq,vag):
+    def __init__(self,num,ruta,hora,maq,vag,next = None,prev=None,valor=None):
         self.num=num
         self.ruta=ruta
         self.hora=hora
         self.maquna=maq
         self.vagon=vag
+        self.next=next  
+        self.prev=prev
+        self.valor=valor
         
     def get_num(self):
         return self.num
@@ -58,10 +61,8 @@ class Tren:
 
 class Maquina:
     def __init__(nume,cap):
-        Tren.__init__(self,num,ruta,hora,maq,vag)
         nume=nume
-        cap=cap
-        
+        cap=cap   
     def get_nume(self):
         return self.nume
     def set_nume(self,nume):
@@ -74,10 +75,8 @@ class Maquina:
 
 class Vagon:
     def Tren__init__(num,cant,next=None,prev=None):
-        Tren.__init__(self,num,ruta,hora,maq,vag)
         numo=numo
-        cant=cant
-    
+        cant=cant  
     def get_numo(self):
         return self.numo
     def set_numo(self,numo):
