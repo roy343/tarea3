@@ -8,12 +8,12 @@ import threading
 import winsound
 
 class Tren:
-    def __init__(self,num,ruta,hora,maq,vag,next = None,prev=None,valor=None):
+    def __init__(self,num,ruta,hora,maq,vags,next = None,prev=None,valor=None):
         self.num=num
         self.ruta=ruta
         self.hora=hora
         self.maquna=maq
-        self.vagon=vag
+        self.vagones=vags
         self.next=next  
         self.prev=prev
         self.valor=valor
@@ -41,17 +41,17 @@ class Tren:
 
     def get_vag(self):
         return self.vag
-    def set_hora(self,vag):
+    def set_vag(self,vag):
         self.vag=vag
             
 class Maquina:
-    def __init__(self,nume,cap):
-        nume=nume
-        cap=cap   
-    def get_nume(self):
-        return self.nume
-    def set_nume(self,nume):
-        self.num=nume
+    def __init__(self,num,cap):
+        self.num=num
+        self.cap=cap   
+    def get_num(self):
+        return self.num
+    def set_num(self,num):
+        self.num=num
 
     def get_cap(self):
         return self.cap
@@ -59,13 +59,15 @@ class Maquina:
         self.cap=cap
 
 class Vagon:
-    def Tren__init__(self,num,cant,next=None,prev=None):
-        numo=numo
-        cant=cant  
-    def get_numo(self):
-        return self.numo
-    def set_numo(self,numo):
-        self.numo=numo
+    def __init__(self,num,cant,next=None,prev=None):
+        self.num=num
+        self.cant=cant
+        self.next=next
+        self.prev=prev
+    def get_num(self):
+        return self.num
+    def set_num(self,num):
+        self.num=num
 
     def get_cant(self):
         return self.cant
