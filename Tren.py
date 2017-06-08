@@ -8,15 +8,14 @@ import threading
 import winsound
 
 class Tren:
-    def __init__(self,num,ruta,hora,maq,vags,next = None,prev=None,valor=None):
+    def __init__(self,num,ruta,hora,maq,vags):
         self.num=num
         self.ruta=ruta
         self.hora=hora
         self.maquna=maq
         self.vagones=vags
-        self.next=next  
-        self.prev=prev
-        self.valor=valor
+        self.head=None  
+        self.tail=None
         self.largo=0
         
     def get_num(self):
