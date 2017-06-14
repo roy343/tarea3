@@ -75,14 +75,14 @@ class Vagon:
 
 ventana = Tk()
 ventana.title("Estación TEC")
-ventana.minsize(1400,900)
+ventana.minsize(1300,700)
 ventana.resizable(width=NO,height=NO)
 
 ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="white")
 ventana1.place(x=0,y=0)
 
 ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
-ventana2.place(x=-5,y=800)
+ventana2.place(x=-5,y=500)
 
 boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
@@ -90,10 +90,10 @@ boton3 = Button(ventana2, text="Estimación de demanda por ruta", bg = "#000000"
 boton4 = Button(ventana2, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=5)
 boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=65)
 boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=65)
-boton7 = Button(ventana2, text="   Llenar vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=1245,y=5)
-boton8 = Button(ventana2, text="   Añadir vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1245,y=35)
-boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1245,y=65)
-boton9 = Button(ventana2, text=" Salir de la estacion ", bg = "#000000", fg = "#FFFFFF").place(x=1125,y=5)
+boton7 = Button(ventana2, text="   Llenar vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=5)
+boton8 = Button(ventana2, text="   Añadir vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=35)
+boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=65)
+boton10 = Button(ventana2, text=" Salir de la estacion ", bg = "#000000", fg = "#FFFFFF").place(x=1025,y=5)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 
