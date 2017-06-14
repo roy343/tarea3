@@ -73,6 +73,11 @@ class Vagon:
     def set_cant(self,cant):
         self.cant=cant
 
+def cargarImagen(nombre):
+    ruta = os.path.join('Material',nombre)
+    imagen = PhotoImage(file=ruta)
+    return imagen
+
 ventana = Tk()
 ventana.title("Estación TEC")
 ventana.minsize(1300,700)
@@ -83,6 +88,32 @@ ventana1.place(x=0,y=0)
 
 ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
 ventana2.place(x=-5,y=500)
+
+img=cargarImagen("0.gif")
+tren = Label(ventana1,image=img,bg="white")
+tren.place(x=100,y=100)
+tren.image = img
+
+def trenanimacion():
+    i = 0
+    try:
+        while i < 2:
+            img = cargarImagen(str(i)+".gif")
+            tren.configure(image=img)
+            tren.image = img
+            i += 1
+            if i == 2:
+                i = 0
+            time.sleep(0.21)
+    except Exception as errtxt:
+        print("Error en hilo")
+def ver_trenanimacion():
+    trent = Thread(target=trenanimacion, args=())
+    trent.start()
+ver_trenanimacion()
+
+def printt():
+    print ('notthing')
 
 boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
@@ -96,7 +127,6 @@ boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFF
 boton10 = Button(ventana2, text=" Salir de la estacion ", bg = "#000000", fg = "#FFFFFF").place(x=1025,y=5)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
-
 
 Label(ventana2,text="Cantidad de pasajeros:",bg="black",fg="white").place(x=10,y=30)
 
