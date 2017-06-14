@@ -112,9 +112,6 @@ def ver_trenanimacion():
     trent.start()
 ver_trenanimacion()
 
-def printt():
-    print ('notthing')
-
 boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
 boton3 = Button(ventana2, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF").place(x=655,y=35)
