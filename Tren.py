@@ -6,6 +6,7 @@ import time
 from threading import Thread
 import threading
 import winsound
+import random
 
 class Tren:
     def __init__(self,num,ruta,hora,maq,vags):
@@ -94,7 +95,8 @@ tren = Label(ventana1,image=img,bg="white")
 tren.place(x=100,y=100)
 tren.image = img
 
-def trenanimacion():
+#Dejo el thread desactivado para trabajar
+'''def trenanimacion(): 
     i = 0
     try:
         while i < 2:
@@ -110,22 +112,67 @@ def trenanimacion():
 def ver_trenanimacion():
     trent = Thread(target=trenanimacion, args=())
     trent.start()
-ver_trenanimacion()
+ver_trenanimacion()'''
+#############################################################3
+clientes = 0
 
+def pasajeros():
+    global clientes
+    if clientes == 0:
+        can = random.randint(1, 100)
+        lblcan = Label(ventana2,text=str(can),bg="black",fg="white").place(x=218,y=30)
+        clientes = 1
+    else:
+        return None
+    
+def vagon_manual():
+    ventana3 = Toplevel()
+    ventana3.title("Añadir vagon de...")
+    ventana3.minsize(200,200)
+    ventana3.resizable(width=NO,height=NO)
+    
+    canvas = Canvas(ventana3,width=200,height=200,bg="white")
+    canvas.place(x=0,y=0)
+
+    def posicion():
+        ventana3.destroy()
+
+        ventana4 = Toplevel()
+        ventana4.title("Posición")
+        ventana4.minsize(200,200)
+        ventana4.resizable(width=NO,height=NO)
+    
+        canvas2 = Canvas(ventana4,width=200,height=200,bg="white")
+        canvas2.place(x=0,y=0)
+
+        Label(canvas2,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
+
+        pos=Entry(canvas2,width=3).place(x=135,y=125)
+        
+        def posicion():
+            ventana4.destroy()
+
+        boton14 = Button(canvas2, command=posicion,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=25)
+        boton15 = Button(canvas2, command=posicion,text="      Al final      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=65)
+        boton16 = Button(canvas2, command=posicion,text="Aceptar", bg = "#000000", fg = "#FFFFFF").place(x=50,y=165)
+
+    boton11 = Button(canvas, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=31)
+    boton12 = Button(canvas, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=87)
+    boton13 = Button(canvas, command=posicion,text="      50 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=143)
+#########################################################################
 boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
-boton3 = Button(ventana2, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF").place(x=655,y=35)
+boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF").place(x=655,y=35)
 boton4 = Button(ventana2, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=5)
 boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=65)
 boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=65)
-boton7 = Button(ventana2, text="   Llenar vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=5)
-boton8 = Button(ventana2, text="   Añadir vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=35)
-boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=65)
-boton10 = Button(ventana2, text=" Salir de la estacion ", bg = "#000000", fg = "#FFFFFF").place(x=1025,y=5)
+boton7 = Button(ventana2, text="   Llenar vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=1025,y=5)
+boton8 = Button(ventana2, command = vagon_manual, text="   Añadir vagon de...  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=35)
+boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=5)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 
-Label(ventana2,text="Cantidad de pasajeros:",bg="black",fg="white").place(x=10,y=30)
+Label(ventana2,text="Cantidad de personas que van a viajar:",bg="black",fg="white").place(x=10,y=30)
 
 
 ventana.mainloop ()
