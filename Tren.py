@@ -48,15 +48,6 @@ class Maquina:
     def __init__(self,num,cap):
         self.num=num
         self.cap=cap   
-    def get_num(self):
-        return self.num
-    def set_num(self,num):
-        self.num=num
-
-    def get_cap(self):
-        return self.cap
-    def set_cap(self,cap):
-        self.cap=cap
 
 class Vagon:
     def __init__(self,num,cant,next=None,prev=None):
@@ -64,15 +55,6 @@ class Vagon:
         self.cant=cant
         self.next=next
         self.prev=prev
-    def get_num(self):
-        return self.num
-    def set_num(self,num):
-        self.num=num
-
-    def get_cant(self):
-        return self.cant
-    def set_cant(self,cant):
-        self.cant=cant
 
 def cargarImagen(nombre):
     ruta = os.path.join('Material',nombre)
@@ -115,6 +97,41 @@ def ver_trenanimacion():
 ver_trenanimacion()'''
 #############################################################3
 clientes = 0
+#Prototipo del reloj
+'''hora = 12
+minutos = 30
+
+texth = str(hora)
+lblhora = Label(ventana1, text= texth, bg="white").place(x=1250,y=0)
+lbl = Label(ventana1, text= ":", bg="white").place(x=1270,y=0)
+textm = str(minutos)
+lblminutos = Label(ventana1, text= textm, bg="white").place(x=1280,y=0)
+
+def hora():
+    global hora
+    global minutos
+    try:
+        while 1:
+            if minutos == "00":
+                minutos = 15
+            elif minutos == 60:
+                minutos = "00"
+                hora += 1
+                if hora == 24:
+                    hora = 0
+            else:
+                minutos += 15
+            texth = str(hora)
+            lblhora.configure(text = texth)
+            textm = str(minutos)
+            lblminutos.configure(text = textm)
+            time.sleep(2.0)      
+    except Exception as errtxt:
+        print("Error en hilo")
+def ver_hora():
+    horah = Thread(target=hora, args=())
+    horah.start()
+ver_hora()'''
 
 def pasajeros():
     global clientes
@@ -124,51 +141,80 @@ def pasajeros():
         clientes = 1
     else:
         return None
-    
-def vagon_manual():
-    ventana3 = Toplevel()
-    ventana3.title("Añadir vagon de...")
-    ventana3.minsize(200,200)
-    ventana3.resizable(width=NO,height=NO)
-    
-    canvas = Canvas(ventana3,width=200,height=200,bg="white")
-    canvas.place(x=0,y=0)
 
-    def posicion():
-        ventana3.destroy()
+def vagones():
+    ventana5 = Toplevel()
+    ventana5.title("Administración de vagones")
+    ventana5.minsize(200,200)
+    ventana5.resizable(width=NO,height=NO)
 
-        ventana4 = Toplevel()
-        ventana4.title("Posición")
-        ventana4.minsize(200,200)
-        ventana4.resizable(width=NO,height=NO)
-    
-        canvas2 = Canvas(ventana4,width=200,height=200,bg="white")
-        canvas2.place(x=0,y=0)
+    canvas3 = Canvas(ventana5,width=200,height=200,bg="white")
+    canvas3.place(x=0,y=0)
 
-        Label(canvas2,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
-
-        pos=Entry(canvas2,width=3).place(x=135,y=125)
+    def vagon_automatico():
+        ventana5.destroy()
         
+        ventana6 = Toplevel()
+        ventana6.title("Qué quieres hacer?")
+        ventana6.minsize(200,200)
+        ventana6.resizable(width=NO,height=NO)
+    
+        canvas4 = Canvas(ventana6,width=200,height=200,bg="white")
+        canvas4.place(x=0,y=0)
+
         def posicion():
-            ventana4.destroy()
+            ventana6.destroy()
+   
+        boton19 = Button(canvas4, command=posicion,text="      Llenar vagones      ", bg = "#000000", fg = "#FFFFFF").place(x=35,y=50)
+        boton20 = Button(canvas4, command=posicion,text="      Quitar vagones      ", bg = "#000000", fg = "#FFFFFF").place(x=35,y=125)
+    
+    def vagon_manual():
+        ventana5.destroy()
+        
+        ventana3 = Toplevel()
+        ventana3.title("Añadir vagon de...")
+        ventana3.minsize(200,200)
+        ventana3.resizable(width=NO,height=NO)
+    
+        canvas = Canvas(ventana3,width=200,height=200,bg="white")
+        canvas.place(x=0,y=0)
 
-        boton14 = Button(canvas2, command=posicion,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=25)
-        boton15 = Button(canvas2, command=posicion,text="      Al final      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=65)
-        boton16 = Button(canvas2, command=posicion,text="Aceptar", bg = "#000000", fg = "#FFFFFF").place(x=50,y=165)
+        def posicion():
+            ventana3.destroy()
 
-    boton11 = Button(canvas, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=31)
-    boton12 = Button(canvas, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=87)
-    boton13 = Button(canvas, command=posicion,text="      50 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=143)
+            ventana4 = Toplevel()
+            ventana4.title("Posición")
+            ventana4.minsize(200,200)
+            ventana4.resizable(width=NO,height=NO)
+    
+            canvas2 = Canvas(ventana4,width=200,height=200,bg="white")
+            canvas2.place(x=0,y=0)
+
+            Label(canvas2,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
+
+            pos=Entry(canvas2,width=3).place(x=135,y=125)
+        
+            def posicion():
+                ventana4.destroy()
+
+            boton14 = Button(canvas2, command=posicion,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF").place(x=52,y=25)
+            boton15 = Button(canvas2, command=posicion,text="      Al final      ", bg = "#000000", fg = "#FFFFFF").place(x=55,y=65)
+            boton16 = Button(canvas2, command=posicion,text="Aceptar", bg = "#000000", fg = "#FFFFFF").place(x=70,y=165)
+    
+        boton11 = Button(canvas, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=31)
+        boton12 = Button(canvas, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=87)
+        boton13 = Button(canvas, command=posicion,text="      50 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=143)
+
+    boton17 = Button(canvas3, command=vagon_automatico, text="      Automático      ", bg = "#000000", fg = "#FFFFFF").place(x=45,y=50)
+    boton18 = Button(canvas3, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF").place(x=55,y=125)
+
 #########################################################################
 boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
 boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF").place(x=655,y=35)
-boton4 = Button(ventana2, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=5)
+boton4 = Button(ventana2, command = vagones, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=5)
 boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=65)
 boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=65)
-boton7 = Button(ventana2, text="   Llenar vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=1025,y=5)
-boton8 = Button(ventana2, command = vagon_manual, text="   Añadir vagon de...  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=35)
-boton9 = Button(ventana2, text="   Quitar vagones  ", bg = "#000000", fg = "#FFFFFF").place(x=1145,y=5)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 
