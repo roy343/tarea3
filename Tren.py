@@ -18,26 +18,6 @@ class Tren:
         self.head=None  
         self.tail=None
         self.largo=0
-        
-    def get_num(self):
-        return self.num
-    def set_num(self,num):
-        self.num=num
-        
-    def get_ruta(self):
-        return self.ruta
-    def set_ruta(self,ruta):
-        self.ruta=ruta
-        
-    def get_hora(self):
-        return self.hora
-    def set_hora(self,hora):
-        self.hora=hora
-        
-    def get_maq(self):
-        return self.maq
-    def set_maq(self,maq):
-        self.maq=maq
 
     def get_vag(self):
         return self.vag
