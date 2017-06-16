@@ -77,41 +77,6 @@ def ver_trenanimacion():
 ver_trenanimacion()'''
 #############################################################3
 clientes = 0
-#Prototipo del reloj
-'''hora = 12
-minutos = 30
-
-texth = str(hora)
-lblhora = Label(ventana1, text= texth, bg="white").place(x=1250,y=0)
-lbl = Label(ventana1, text= ":", bg="white").place(x=1270,y=0)
-textm = str(minutos)
-lblminutos = Label(ventana1, text= textm, bg="white").place(x=1280,y=0)
-
-def hora():
-    global hora
-    global minutos
-    try:
-        while 1:
-            if minutos == "00":
-                minutos = 15
-            elif minutos == 60:
-                minutos = "00"
-                hora += 1
-                if hora == 24:
-                    hora = 0
-            else:
-                minutos += 15
-            texth = str(hora)
-            lblhora.configure(text = texth)
-            textm = str(minutos)
-            lblminutos.configure(text = textm)
-            time.sleep(2.0)      
-    except Exception as errtxt:
-        print("Error en hilo")
-def ver_hora():
-    horah = Thread(target=hora, args=())
-    horah.start()
-ver_hora()'''
 
 def pasajeros():
     global clientes
