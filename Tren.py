@@ -123,82 +123,99 @@ def pasajeros():
         return None
 
 def vagones():
-    ventana5 = Toplevel()
-    ventana5.title("Administración de vagones")
-    ventana5.minsize(200,200)
-    ventana5.resizable(width=NO,height=NO)
+    ventana_vagones = Toplevel()
+    ventana_vagones.title("Administración de vagones")
+    ventana_vagones.minsize(200,200)
+    ventana_vagones.resizable(width=NO,height=NO)
 
-    canvas3 = Canvas(ventana5,width=200,height=200,bg="white")
-    canvas3.place(x=0,y=0)
+    canvas_vagones = Canvas(ventana_vagones,width=200,height=200,bg="white")
+    canvas_vagones.place(x=0,y=0)
 
     def vagon_automatico():
-        ventana5.destroy()
+        ventana_vagones.destroy()
         
-        ventana6 = Toplevel()
-        ventana6.title("Qué quieres hacer?")
-        ventana6.minsize(200,200)
-        ventana6.resizable(width=NO,height=NO)
+        ventana_auto = Toplevel()
+        ventana_auto.title("Qué quieres hacer?")
+        ventana_auto.minsize(200,200)
+        ventana_auto.resizable(width=NO,height=NO)
     
-        canvas4 = Canvas(ventana6,width=200,height=200,bg="white")
-        canvas4.place(x=0,y=0)
+        canvas_auto = Canvas(ventana_auto,width=200,height=200,bg="white")
+        canvas_auto.place(x=0,y=0)
 
-        def posicion():
-            ventana6.destroy()
+        def llenar_auto():
+            ventana_auto.destroy()
+
+        def quitar_auto():
+            ventana_auto.destroy()
    
-        boton19 = Button(canvas4, command=posicion,text="      Llenar vagones      ", bg = "#000000", fg = "#FFFFFF").place(x=35,y=50)
-        boton20 = Button(canvas4, command=posicion,text="      Quitar vagones      ", bg = "#000000", fg = "#FFFFFF").place(x=35,y=125)
+        boton1 = Button(canvas_auto, command=llenar_auto,text="      Llenar vagones      ", bg = "#000000", fg = "#FFFFFF")
+        boton1.place(x=35,y=50)
+        boton2 = Button(canvas_auto, command=quitar_auto,text="      Quitar vagones      ", bg = "#000000", fg = "#FFFFFF")
+        boton2.place(x=35,y=125)
     
     def vagon_manual():
-        ventana5.destroy()
+        ventana_vagones.destroy()
         
-        ventana3 = Toplevel()
-        ventana3.title("Añadir vagon de...")
-        ventana3.minsize(200,200)
-        ventana3.resizable(width=NO,height=NO)
+        ventana_man = Toplevel()
+        ventana_man.title("Añadir vagon de...")
+        ventana_man.minsize(200,200)
+        ventana_man.resizable(width=NO,height=NO)
     
-        canvas = Canvas(ventana3,width=200,height=200,bg="white")
-        canvas.place(x=0,y=0)
+        canvas_man = Canvas(ventana_man,width=200,height=200,bg="white")
+        canvas_man.place(x=0,y=0)
 
         def posicion():
-            ventana3.destroy()
+            ventana_man.destroy()
 
-            ventana4 = Toplevel()
-            ventana4.title("Posición")
-            ventana4.minsize(200,200)
-            ventana4.resizable(width=NO,height=NO)
+            ventana_pos = Toplevel()
+            ventana_pos.title("Posición")
+            ventana_pos.minsize(200,200)
+            ventana_pos.resizable(width=NO,height=NO)
     
-            canvas2 = Canvas(ventana4,width=200,height=200,bg="white")
-            canvas2.place(x=0,y=0)
+            canvas_pos = Canvas(ventana_pos,width=200,height=200,bg="white")
+            canvas_pos.place(x=0,y=0)
 
-            Label(canvas2,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
+            Label(canvas_pos,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
 
-            pos=Entry(canvas2,width=3).place(x=135,y=125)
+            pos=Entry(canvas_pos,width=3).place(x=135,y=125)
         
-            def posicion():
-                ventana4.destroy()
+            def colocar():
+                ventana_pos.destroy()
 
-            boton14 = Button(canvas2, command=posicion,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF").place(x=52,y=25)
-            boton15 = Button(canvas2, command=posicion,text="      Al final      ", bg = "#000000", fg = "#FFFFFF").place(x=55,y=65)
-            boton16 = Button(canvas2, command=posicion,text="Aceptar", bg = "#000000", fg = "#FFFFFF").place(x=70,y=165)
+            boton1 = Button(canvas_pos, command=colocar,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF")
+            boton1.place(x=52,y=25)
+            boton2 = Button(canvas_pos, command=colocar,text="      Al final      ", bg = "#000000", fg = "#FFFFFF")
+            boton2.place(x=55,y=65)
+            boton3 = Button(canvas_pos, command=colocar,text="Aceptar", bg = "#000000", fg = "#FFFFFF")
+            boton3.place(x=70,y=165)
     
-        boton11 = Button(canvas, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=31)
-        boton12 = Button(canvas, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=87)
-        boton13 = Button(canvas, command=posicion,text="      50 personas      ", bg = "#000000", fg = "#FFFFFF").place(x=50,y=143)
+        boton1 = Button(canvas_man, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF")
+        boton1.place(x=50,y=31)
+        boton2 = Button(canvas_man, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF")
+        boton2.place(x=50,y=87)
+        boton3 = Button(canvas_man, command=posicion,text="      50 personas      ", bg = "#000000", fg = "#FFFFFF")
+        boton3.place(x=50,y=143)
 
-    boton17 = Button(canvas3, command=vagon_automatico, text="      Automático      ", bg = "#000000", fg = "#FFFFFF").place(x=45,y=50)
-    boton18 = Button(canvas3, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF").place(x=55,y=125)
+    boton1 = Button(canvas_vagones, command=vagon_automatico, text="      Automático      ", bg = "#000000", fg = "#FFFFFF")
+    boton1.place(x=45,y=50)
+    boton2 = Button(canvas_vagones, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF")
+    boton2.place(x=55,y=125)
 
 #########################################################################
-boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=5)
-boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=35)
-boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF").place(x=655,y=35)
-boton4 = Button(ventana2, command = vagones, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=5)
-boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF").place(x=505,y=65)
-boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF").place(x=655,y=65)
+boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF")
+boton1.place(x=505,y=5)
+boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF")
+boton2.place(x=505,y=35)
+boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF")
+boton3.place(x=655,y=35)
+boton4 = Button(ventana2, command = vagones, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF")
+boton4.place(x=655,y=5)
+boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF")
+boton5.place(x=505,y=65)
+boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF")
+boton6.place(x=655,y=65)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
-
 Label(ventana2,text="Cantidad de personas que van a viajar:",bg="black",fg="white").place(x=10,y=30)
-
 
 ventana.mainloop ()
