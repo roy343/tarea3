@@ -173,10 +173,18 @@ def ver_trenanimacion():
     trent.start()
 ver_trenanimacion()'''
 
+simulacion = False
 clientes = 0
 
+def iniciar ():
+    global simulacion
+    simulacion = True
+
 def pasajeros():
+    global simulacion
     global clientes
+    if simulacion == False:
+        return None
     if clientes == 0:
         can = random.randint(1, 100)
         lblcan = Label(ventana2,text=str(can),bg="black",fg="white").place(x=218,y=30)
@@ -185,6 +193,9 @@ def pasajeros():
         return None
 
 def vagones():
+    global simulacion
+    if simulacion == False:
+        return None
     ventana_vagones = Toplevel()
     ventana_vagones.title("Administración de vagones")
     ventana_vagones.minsize(200,200)
@@ -300,7 +311,7 @@ def vagones():
     boton2 = Button(canvas_vagones, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF")
     boton2.place(x=55,y=125)
 
-boton1 = Button(ventana2, text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF")
+boton1 = Button(ventana2, command = iniciar,text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF")
 boton1.place(x=505,y=5)
 boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF")
 boton2.place(x=505,y=35)
