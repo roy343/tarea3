@@ -24,8 +24,6 @@ class Tren:
     def set_vag(self,vag):
         self.vag=vag
 
-    #################################
-
     def mostrar (self):
         print (self.maquina.num)
         nodo = self.head
@@ -118,8 +116,6 @@ class Tren:
             self.largo -=1
 
     #Falta llenar vagones automaticos, salir, llegar 
-
-    ###################
             
 class Maquina:
     def __init__(self,num,cap):
