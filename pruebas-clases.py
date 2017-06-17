@@ -3,7 +3,7 @@ class Tren:
         self.num=num
         self.ruta=ruta
         self.hora=hora
-        self.maquina=Maquina(num = maq, cap = 3) #Temporal
+        self.maquina=maq #Temporal
         self.vagones=vags
         self.head=None  
         self.tail=None
@@ -80,6 +80,35 @@ class Tren:
             else:
                 return 'Error'
 
+    def quitar_vagones (self):
+        self.head = None
+        self.tail = None
+        self.largo = 0
+
+    def quitar_vagon (self, pos):
+        temp = self.head
+        if pos > self.largo:
+            return 'Error'
+        if pos == 1:
+            self.head = temp.next
+            self.largo -=1
+        elif pos == self.largo:
+            temp = self.tail
+            temp2 = temp.prev
+            self.tail = temp2
+            temp2.next = None
+            self.largo -=1
+        else:
+            i = 1
+            while i != pos:
+                temp = temp.next
+                i += 1
+            temp_1 = temp.prev
+            temp_1.next = temp.next
+            self.largo -=1
+
+    #Falta llenar vagones automaticos, salir, llegar  
+
     ###################
             
 class Maquina:
@@ -93,3 +122,4 @@ class Vagon:
         self.cant=cant
         self.next=next
         self.prev=prev
+
