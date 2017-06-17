@@ -172,6 +172,74 @@ ver_trenanimacion()'''
 simulacion = False
 clientes = 0
 
+def info_Vagon(): 
+    info = Toplevel()
+    info.title("Informacion de los vagones")
+    info.config(bg = "black")
+    info.minsize(100,100)
+    ventana.resizable(width=NO,height=NO)
+    Label(info,text= "Vagon verde = 50 pasajeros",bg="black",fg="green").place(x=10,y=10)
+    Label(info,text= "Vagon marron = 30 pasajeros",bg="black",fg="brown").place(x=10,y=40)
+    Label(info,text= "Vagon gris = 20 pasajeros",bg= "black",fg="grey").place(x=10,y=70)
+def pausa():
+    pausa = True
+def reloj():
+    pausa = False
+    while pausa == False:
+        Label(ventana2,text= "HORA = 00:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 01:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 02:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 03:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 04:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 05:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 06:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 07:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 08:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 09:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 10:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 11:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 12:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 13:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 14:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 15:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 16:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 17:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 18:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 19:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 20:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 21:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 22:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        Label(ventana2,text= "HORA = 23:00",bg="black",fg="white").place(x=10,y=65)
+        time.sleep(10)
+        
+def hilo_reloj():
+    hilo = Thread(target = reloj,args=())
+    hilo.start()
+hilo_reloj()
+
 def iniciar ():
     global simulacion
     simulacion = True
@@ -319,6 +387,10 @@ boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#0000
 boton5.place(x=505,y=65)
 boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF")
 boton6.place(x=655,y=65)
+boton7 = Button(ventana2, command = pausa, text="                Pausar reloj                     ", bg = "#000000", fg = "#FFFFFF")#Agregue 2 botones nuevos
+boton7.place(x=655,y=95)
+boton8 = Button(ventana2, command = info_Vagon, text="                Info de Vagones             ", bg = "#000000", fg = "#FFFFFF")
+boton8.place(x=655,y=125)
 
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 Label(ventana2,text="Cantidad de personas que van a viajar:",bg="black",fg="white").place(x=10,y=30)
