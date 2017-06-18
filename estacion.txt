@@ -1,0 +1,85 @@
+1
+3
+2
+3
+3
+3
+4
+3
+1
+20
+Libre
+2
+20
+Libre
+3
+20
+Libre
+4
+20
+Libre
+5
+20
+Libre
+6
+30
+Libre
+7
+30
+Libre
+8
+30
+Libre
+9
+30
+Libre
+10
+30
+Libre
+11
+50
+Libre
+12
+50
+Libre
+13
+50
+Libre
+14
+50
+Libre
+15
+50
+Libre
+1
+TEC - San José
+01:00
+3
+2
+TEC - Alajuela
+04:00
+3
+3
+TEC - San José
+07:00
+3
+4
+TEC - Alajuela
+10:00
+3
+5
+San José - TEC
+13:00
+3
+6
+Alajuela - TEC
+16:00
+3
+7
+San José - TEC
+19:00
+3
+8
+Alajuela - TEC
+22:00
+3
