@@ -139,19 +139,34 @@ ventana.title("Estación TEC")
 ventana.minsize(1300,700)
 ventana.resizable(width=NO,height=NO)
 
-ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="white")
+ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="blue")
 ventana1.place(x=0,y=0)
+ESTACION = cargarImagen("Estacion.gif")
+Estacion = ventana1.create_image(650,100,image = ESTACION)
+
 
 ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
 ventana2.place(x=-5,y=500)
 
 img=cargarImagen("0.gif")
 tren = Label(ventana1,image=img,bg="white")
-tren.place(x=650,y=100)
+tren.place(x=675,y=225)
 tren.image = img
+'''img2 = cargarImagen("8.gif")
+vagon = Label(ventana1, image = img2,bg="white")
+vagon.place(x=575,y=295)
+vagon.image = img2
+img3 = cargarImagen("16.gif")
+vagon2 = Label(ventana1, image = img3,bg="white")
+vagon2.place(x=275,y=295)
+vagon2.image = img3
+img4 = cargarImagen("24.gif")
+vagon3 = Label(ventana1, image = img4,bg="white")
+vagon3.place(x=0,y=295)
+vagon3.image = img4'''
 
 #Dejo el thread desactivado para trabajar
-'''def trenanimacion(): 
+def trenanimacion(): 
     i = 0
     try:
         while i < 2:
@@ -167,11 +182,85 @@ tren.image = img
 def ver_trenanimacion():
     trent = Thread(target=trenanimacion, args=())
     trent.start()
-ver_trenanimacion()'''
+ver_trenanimacion()
+
+'''def vagon1animacion(): 
+    i2 = 8
+    try:
+        while i2 < 15:
+            img2 = cargarImagen(str(i2)+".gif")
+            vagon.configure(image = img2)
+            vagon.image = img2
+            i2 += 1
+            if i2 == 15:
+                i2 = 8
+            time.sleep(0.21)
+    except Exception as errtxt:
+        print("Error en hilo")
+def ver_vagon1animacion():
+    trent2 = Thread(target=vagon1animacion, args=())
+    trent2.start()
+ver_vagon1animacion()
+
+def vagon2animacion(): 
+    i3 = 16
+    try:
+        while i3 < 23:
+            img3 = cargarImagen(str(i3)+".gif")
+            vagon2.configure(image = img3)
+            vagon2.image = img3
+            i3 += 1
+            if i3 == 23:
+                i3 = 16
+            time.sleep(0.21)
+    except Exception as errtxt:
+        print("Error en hilo")
+def ver_vagon2animacion():
+    trent3 = Thread(target=vagon2animacion, args=())
+    trent3.start()
+ver_vagon2animacion()
+
+def vagon3animacion(): 
+    i4 = 24
+    try:
+        while i4 < 31:
+            img4 = cargarImagen(str(i4)+".gif")
+            vagon3.configure(image = img4)
+            vagon3.image = img4
+            i4 += 1
+            if i4 == 31:
+                i4 = 24
+            time.sleep(0.21)
+    except Exception as errtxt:
+        print("Error en hilo")
+def ver_vagon3animacion():
+    trent4 = Thread(target=vagon3animacion, args=())
+    trent4.start()
+ver_vagon3animacion()'''
 
 simulacion = False
 clientes = 0
-
+def Llegada():
+    quieto = False
+    i5 = 0
+    while quieto != True and i5 < 675:
+        tren.place(x = str(i5),y = 100)
+        i5 += 10
+        time.sleep(0.1)
+def iniciar_Llegada():
+    Hiloprueba = Thread(target = Llegada, args=())
+    Hiloprueba.start()
+def Salida():
+    moviendose = False
+    i6 = 675
+    while moviendose != True and i6 < 1300:
+        tren.place(x = str(i6), y = 100)
+        i6 += 10
+        time.sleep(0.1)
+def iniciar_Salida():
+    Hiloprueba2 = Thread(target = Salida, args = ())
+    Hiloprueba2.start()
+    
 def info_Vagon(): 
     info = Toplevel()
     info.title("Informacion de los vagones")
@@ -391,8 +480,13 @@ boton7 = Button(ventana2, command = pausa, text="                Pausar reloj   
 boton7.place(x=655,y=95)
 boton8 = Button(ventana2, command = info_Vagon, text="                Info de Vagones             ", bg = "#000000", fg = "#FFFFFF")
 boton8.place(x=655,y=125)
-
+boton9 = Button(ventana2, command = iniciar_Llegada, text="                Llegada Pureba             ", bg = "#000000", fg = "#FFFFFF")
+boton9.place(x=505,y=125)
+boton9 = Button(ventana2, command = iniciar_Salida, text="                Salida Pureba             ", bg = "#000000", fg = "#FFFFFF")
+boton9.place(x=505,y=155)
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 Label(ventana2,text="Cantidad de personas que van a viajar:",bg="black",fg="white").place(x=10,y=30)
 
 ventana.mainloop ()
+
+
