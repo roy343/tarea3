@@ -1,4 +1,5 @@
 def main():
+
     file=open("archivo.txt","w")#Abre el archivo y deja que se pueda escribi en el 
     file.write("Maquina#2 \n7:30 a.m. \nTEC-San Jose")#Escribe en el archivo #el "\n" python lo lee como unn "enter"
     file.close()#Cierra el archivo(esto es necesario)
