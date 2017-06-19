@@ -13,16 +13,16 @@ class Tren:
         self.num=num
         self.ruta=ruta
         self.hora=hora
-        self.maquina=Maquina(num = maq, cap = 3)
+        self.maquina=maq
         self.vagones=vags
         self.head=None  
         self.tail=None
         self.largo=0
 
-    def get_vag(self):
-        return self.vag
-    def set_vag(self,vag):
-        self.vag=vag
+    def get_vagones(self):
+        return self.vagones
+    def set_vagones(self,vags):
+        self.vagones=vags
 
     def mostrar (self):
         print (self.maquina.num)
@@ -31,38 +31,50 @@ class Tren:
             print (nodo.num)
             nodo = nodo.next
 
-    def agregar_inicio (self, num, cant):
+    def agregar_inicio (self, vag):
+        if self.largo == self.vagones:
+            return None
         self.largo += 1
         if self.head == None: 
-            self.head = Vagon (num = num, cant = cant)
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         else:
-            temp = Vagon (num = num, cant = cant)
+            temp = vag
             temp.next = self.head
             self.head.prev = temp
             self.head = temp
+            self.head.estado = 'Ocupado'
 
-    def agregar_final (self, num, cant):
+    def agregar_final (self, vag):
+        if self.largo == self.vagones:
+            return None
         self.largo += 1
         if self.head == None: 
-            self.head = Vagon (num = num, cant = cant)
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         else:
             temp = self.tail
-            temp2 = Vagon (num = num, cant = cant)
+            temp2 = vag
             temp.next = temp2
             temp2.prev = temp
             self.tail = temp2
+            self.tail.estado = 'Ocupado'
 
-    def agregar_medio (self, pos, num, cant):
-        if self.head == None:
-            self.head = Vagon (num = num, cant = cant)
+    def agregar_medio (self, pos, vag):
+        if self.largo == self.vagones:
+            return None
+        elif self.head == None and pos == 1:
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         elif self.head != None and pos == 1:
-            temp = Vagon (num = num, cant = cant)
+            temp = vag
             temp.next = self.head
             self.head.prev = temp
             self.head = temp
+            self.head.estado = 'Ocupado'
         else:
             i = 1
             temp = self.head
@@ -73,7 +85,8 @@ class Tren:
                 temp = temp.next
             izq = temp.prev
             der = temp
-            med = Vagon (num = num, cant = cant)
+            med = vag
+            med.estado = 'Ocupado'
             if i == pos-1:
                 der.next = med
                 med.prev = der
@@ -89,23 +102,49 @@ class Tren:
                 return 'Error'
 
     def quitar_vagones (self):
+        if self.largo == 0:
+            return None
+        self.largo = 0
+        temp = self.tail
+        temp2 =  temp.prev
+        while temp2 != None:
+            temp.estado = 'Libre'
+            temp.next = None
+            temp = temp2
+            temp2 = temp.prev
+            temp.next.prev = None
+        temp.next = None
+        temp.prev = None
         self.head = None
         self.tail = None
-        self.largo = 0
 
     def quitar_vagon (self, pos):
         temp = self.head
         if pos > self.largo:
-            return 'Error'
-        if pos == 1:
-            self.head = temp.next
+            return None
+        if pos == 1 and pos == self.largo:
+            temp.next = None
+            temp.prev = None
+            self.head = None
+            self.tail = None
+            return None
+        elif pos == 1:
+            temp2 = temp.next
+            self.head = temp2
             self.largo -=1
+            temp.next = None
+            temp.estado = 'Libre'
+            temp2.prev = None
+            return None
         elif pos == self.largo:
             temp = self.tail
             temp2 = temp.prev
             self.tail = temp2
             temp2.next = None
             self.largo -=1
+            temp.prev = None
+            temp.estado = 'Libre'
+            return None
         else:
             i = 1
             while i != pos:
@@ -114,20 +153,134 @@ class Tren:
             temp_1 = temp.prev
             temp_1.next = temp.next
             self.largo -=1
+            temp.next = None
+            temp.prev = None
+            temp.estado = 'Libre'
 
-    #Falta llenar vagones automaticos, salir, llegar 
+    def llenar(self):
+        global x
+        if self.largo > 0:
+            return None
+        while x > 0:
+            if x > 30:
+                self.agregar_final(v11)
+                v11.estado = 'Ocupado'
+                xb = 50
+            elif x <= 30 and x > 20:
+                self.agregar_final(v6)
+                v6.estado = 'Ocupado'
+                xb = 30
+            else:
+                self.agregar_final(v1)
+                v1.estado = 'Ocupado'
+                xb = 20
+            x -= xb
+x=71
+    #Falta salir, llegar  
             
 class Maquina:
     def __init__(self,num,cap):
         self.num=num
-        self.cap=cap   
+        self.cap=cap
 
 class Vagon:
-    def __init__(self,num,cant,next=None,prev=None):
+    def __init__(self,num,cant,estado,next=None,prev=None):
         self.num=num
         self.cant=cant
+        self.estado=estado        
         self.next=next
         self.prev=prev
+
+    def get_estado(self):
+        return self.estado
+    def set_estado(self,estado):
+        self.estado=estado
+
+m1 = 0
+m2 = 0
+m3 = 0
+m4 = 0
+v1 = 0
+v2 = 0
+v3 = 0
+v4 = 0
+v5 = 0
+v6 = 0
+v7 = 0
+v8 = 0
+v9 = 0
+v10 = 0
+v11 = 0
+v12 = 0
+v13 = 0
+v14 = 0
+v15 = 0
+t1 = 0
+t2 = 0
+t3 = 0
+t4 = 0
+t5 = 0
+t6 = 0
+t7 = 0
+t8 = 0
+
+def sim():
+    global m1 
+    global m2 
+    global m3 
+    global m4 
+    global v1 
+    global v2 
+    global v3 
+    global v4 
+    global v5 
+    global v6 
+    global v7
+    global v8 
+    global v9 
+    global v10 
+    global v11 
+    global v12  
+    global v13 
+    global v14 
+    global v15 
+    global t1 
+    global t2 
+    global t3 
+    global t4
+    global t5 
+    global t6 
+    global t7 
+    global t8
+    with open('estacion.txt','r') as f:
+        x = f.readlines()
+        m1 = Maquina(int(x[0].replace('\n','')),int(x[1].replace('\n','')))
+        m2 = Maquina(int(x[2].replace('\n','')),int(x[3].replace('\n','')))
+        m3 = Maquina(int(x[4].replace('\n','')),int(x[5].replace('\n','')))
+        m4 = Maquina(int(x[6].replace('\n','')),int(x[7].replace('\n','')))
+        v1 = Vagon(int(x[8].replace('\n','')),int(x[9].replace('\n','')),x[10].replace('\n',''))
+        v2 = Vagon(int(x[11].replace('\n','')),int(x[12].replace('\n','')),x[13].replace('\n',''))
+        v3 = Vagon(int(x[14].replace('\n','')),int(x[15].replace('\n','')),x[16].replace('\n',''))
+        v4 = Vagon(int(x[17].replace('\n','')),int(x[18].replace('\n','')),x[19].replace('\n',''))
+        v5 = Vagon(int(x[20].replace('\n','')),int(x[21].replace('\n','')),x[22].replace('\n',''))
+        v6 = Vagon(int(x[23].replace('\n','')),int(x[24].replace('\n','')),x[25].replace('\n',''))
+        v7 = Vagon(int(x[26].replace('\n','')),int(x[27].replace('\n','')),x[28].replace('\n',''))
+        v8 = Vagon(int(x[29].replace('\n','')),int(x[30].replace('\n','')),x[31].replace('\n',''))
+        v9 = Vagon(int(x[32].replace('\n','')),int(x[33].replace('\n','')),x[34].replace('\n',''))
+        v10 = Vagon(int(x[35].replace('\n','')),int(x[36].replace('\n','')),x[37].replace('\n',''))
+        v11 = Vagon(int(x[38].replace('\n','')),int(x[39].replace('\n','')),x[40].replace('\n',''))
+        v12 = Vagon(int(x[41].replace('\n','')),int(x[42].replace('\n','')),x[43].replace('\n',''))
+        v13 = Vagon(int(x[44].replace('\n','')),int(x[45].replace('\n','')),x[46].replace('\n',''))
+        v14 = Vagon(int(x[47].replace('\n','')),int(x[48].replace('\n','')),x[49].replace('\n',''))
+        v15 = Vagon(int(x[50].replace('\n','')),int(x[51].replace('\n','')),x[52].replace('\n',''))
+        t1 = Tren(int(x[53].replace('\n','')),x[54].replace('\n',''),x[55].replace('\n',''),m1,int(x[56].replace('\n','')))
+        t2 = Tren(int(x[57].replace('\n','')),x[58].replace('\n',''),x[59].replace('\n',''),m2,int(x[60].replace('\n','')))
+        t3 = Tren(int(x[61].replace('\n','')),x[62].replace('\n',''),x[63].replace('\n',''),m3,int(x[64].replace('\n','')))
+        t4 = Tren(int(x[65].replace('\n','')),x[66].replace('\n',''),x[67].replace('\n',''),m4,int(x[68].replace('\n','')))
+        t5 = Tren(int(x[69].replace('\n','')),x[70].replace('\n',''),x[61].replace('\n',''),m1,int(x[72].replace('\n','')))
+        t6 = Tren(int(x[73].replace('\n','')),x[74].replace('\n',''),x[75].replace('\n',''),m2,int(x[76].replace('\n','')))
+        t7 = Tren(int(x[77].replace('\n','')),x[78].replace('\n',''),x[79].replace('\n',''),m3,int(x[80].replace('\n','')))
+        t8 = Tren(int(x[81].replace('\n','')),x[82].replace('\n',''),x[83].replace('\n',''),m4,int(x[84]))
 
 def cargarImagen(nombre):
     ruta = os.path.join('Material',nombre)
@@ -141,9 +294,9 @@ ventana.resizable(width=NO,height=NO)
 
 ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="blue")
 ventana1.place(x=0,y=0)
-ESTACION = cargarImagen("Estacion.gif")
-Estacion = ventana1.create_image(650,100,image = ESTACION)
 
+#ESTACION = cargarImagen("Estacion.gif")
+#Estacion = ventana1.create_image(650,100,image = ESTACION)
 
 ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
 ventana2.place(x=-5,y=500)
@@ -152,18 +305,21 @@ img=cargarImagen("0.gif")
 tren = Label(ventana1,image=img,bg="white")
 tren.place(x=675,y=225)
 tren.image = img
-'''img2 = cargarImagen("8.gif")
+
+img2 = cargarImagen("8.gif")
 vagon = Label(ventana1, image = img2,bg="white")
 vagon.place(x=575,y=295)
 vagon.image = img2
+
 img3 = cargarImagen("16.gif")
 vagon2 = Label(ventana1, image = img3,bg="white")
 vagon2.place(x=275,y=295)
 vagon2.image = img3
+
 img4 = cargarImagen("24.gif")
 vagon3 = Label(ventana1, image = img4,bg="white")
 vagon3.place(x=0,y=295)
-vagon3.image = img4'''
+vagon3.image = img4
 
 #Dejo el thread desactivado para trabajar
 def trenanimacion(): 
@@ -182,9 +338,8 @@ def trenanimacion():
 def ver_trenanimacion():
     trent = Thread(target=trenanimacion, args=())
     trent.start()
-ver_trenanimacion()
 
-'''def vagon1animacion(): 
+def vagon1animacion(): 
     i2 = 8
     try:
         while i2 < 15:
@@ -200,7 +355,6 @@ ver_trenanimacion()
 def ver_vagon1animacion():
     trent2 = Thread(target=vagon1animacion, args=())
     trent2.start()
-ver_vagon1animacion()
 
 def vagon2animacion(): 
     i3 = 16
@@ -218,7 +372,6 @@ def vagon2animacion():
 def ver_vagon2animacion():
     trent3 = Thread(target=vagon2animacion, args=())
     trent3.start()
-ver_vagon2animacion()
 
 def vagon3animacion(): 
     i4 = 24
@@ -236,11 +389,11 @@ def vagon3animacion():
 def ver_vagon3animacion():
     trent4 = Thread(target=vagon3animacion, args=())
     trent4.start()
-ver_vagon3animacion()'''
 
 simulacion = False
 clientes = 0
 pausa = True
+
 def Llegada():
     quieto = False
     i5 = 0
@@ -251,6 +404,7 @@ def Llegada():
 def iniciar_Llegada():
     Hiloprueba = Thread(target = Llegada, args=())
     Hiloprueba.start()
+    
 def Salida():
     moviendose = False
     i6 = 675
@@ -268,66 +422,53 @@ def info_Vagon():
     info.config(bg = "black")
     info.minsize(100,100)
     ventana.resizable(width=NO,height=NO)
+    
     Label(info,text= "Vagon verde = 50 pasajeros",bg="black",fg="green").place(x=10,y=10)
     Label(info,text= "Vagon marron = 30 pasajeros",bg="black",fg="brown").place(x=10,y=40)
     Label(info,text= "Vagon gris = 20 pasajeros",bg= "black",fg="grey").place(x=10,y=70)
+    
 def pausa():
-    pausa = True
+    global pausa
+    if pausa == False:
+        pausa = True
+    else:
+        pausa = False
+        hilo_reloj()
     
 v=StringVar()#define v como una variable de texto
 Label(ventana2,textvariable=v,bg="black",fg="white").place(x=10,y=65)#Label principal
 
+var1 = "Hora "
+var2 = "0"
+var3 = 0
+var4 = ":"
+var5 = 0
+var6 = "0"
+
 def reloj():#funcion de reloj
-    pausa = False
+    global var1
+    global var2
+    global var3
+    global var4
+    global var5
+    global pausa
     while pausa == False:
-        v.set("Hora 00:00")#Defien el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 01:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 02:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 03:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 04:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 05:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 06:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 07:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 08:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 09:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 10:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 11:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 12:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 13:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 14:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 15:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 16:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 17:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 18:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 19:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 20:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 21:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 22:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
-        v.set("Hora 23:00")#Cambia el valor de "v"
-        time.sleep(7)#espera 7 segundos
+        v.set(var1+var2+str(var3)+var4+str(var5)+var6)
+        var5 += 1
+        if var5 == 6:
+            var5 = 0
+            var3 += 1
+            if var3 == 10 and var2 == "1":
+                var3 = 0
+                var2 = "2"
+            elif var3 == 10 and var2 == "0":
+                var3 = 0
+                var2 = "1"
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 24:00":
+            var2 = "0"
+            var5 = 0
+            var3 = 0
+        time.sleep(0.5)
 def hilo_reloj():
     hilo = Thread(target = reloj,args=())
     hilo.start()
@@ -335,9 +476,13 @@ def hilo_reloj():
 def iniciar ():
     global simulacion
     global pausa
-    simulacion = True
-    pausa = False
-    hilo_reloj()
+    if simulacion == True:
+        return None
+    else:
+        sim()
+        simulacion = True
+        pausa = False
+        hilo_reloj()
 
 def pasajeros():
     global simulacion
@@ -380,8 +525,8 @@ def vagones():
         def quitar_auto():
             ventana_auto.destroy()
    
-        #boton1 = Button(canvas_auto, command=llenar_auto,text="      Llenar vagones      ", bg = "#000000", fg = "#FFFFFF")
-        #boton1.place(x=35,y=50)
+        boton1 = Button(canvas_auto, command=llenar_auto,text="      Llenar vagones      ", bg = "#000000", fg = "#FFFFFF")
+        boton1.place(x=35,y=50)
         boton2 = Button(canvas_auto, command=quitar_auto,text="      Quitar vagones      ", bg = "#000000", fg = "#FFFFFF")
         boton2.place(x=35,y=125)
 
