@@ -240,6 +240,7 @@ ver_vagon3animacion()'''
 
 simulacion = False
 clientes = 0
+pausa = True
 def Llegada():
     quieto = False
     i5 = 0
@@ -271,9 +272,14 @@ def info_Vagon():
     Label(info,text= "Vagon marron = 30 pasajeros",bg="black",fg="brown").place(x=10,y=40)
     Label(info,text= "Vagon gris = 20 pasajeros",bg= "black",fg="grey").place(x=10,y=70)
 def pausa():
-    pausa = True
+    global pausa
+    if pausa == False:
+        pausa = True
+    elif pausa == True:
+        pausa = False
+    hilo_reloj()
 def reloj():
-    pausa = False
+    global pausa
     while pausa == False:
         Label(ventana2,text= "HORA = 00:00",bg="black",fg="white").place(x=10,y=65)
         time.sleep(10)
@@ -327,11 +333,13 @@ def reloj():
 def hilo_reloj():
     hilo = Thread(target = reloj,args=())
     hilo.start()
-hilo_reloj()
 
 def iniciar ():
     global simulacion
+    global pausa
     simulacion = True
+    pausa = False
+    hilo_reloj()
 
 def pasajeros():
     global simulacion

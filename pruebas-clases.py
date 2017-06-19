@@ -3,18 +3,16 @@ class Tren:
         self.num=num
         self.ruta=ruta
         self.hora=hora
-        self.maquina=maq #Temporal
+        self.maquina=maq
         self.vagones=vags
         self.head=None  
         self.tail=None
         self.largo=0
 
-    def get_vag(self):
-        return self.vag
-    def set_vag(self,vag):
-        self.vag=vag
-
-    #################################
+    def get_vagones(self):
+        return self.vagones
+    def set_vagones(self,vags):
+        self.vagones=vags
 
     def mostrar (self):
         print (self.maquina.num)
@@ -23,38 +21,50 @@ class Tren:
             print (nodo.num)
             nodo = nodo.next
 
-    def agregar_inicio (self, num, cant):
+    def agregar_inicio (self, vag):
+        if self.largo == self.vagones:
+            return None
         self.largo += 1
         if self.head == None: 
-            self.head = Vagon (num = num, cant = cant)
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         else:
-            temp = Vagon (num = num, cant = cant)
+            temp = vag
             temp.next = self.head
             self.head.prev = temp
             self.head = temp
+            self.head.estado = 'Ocupado'
 
-    def agregar_final (self, num, cant):
+    def agregar_final (self, vag):
+        if self.largo == self.vagones:
+            return None
         self.largo += 1
         if self.head == None: 
-            self.head = Vagon (num = num, cant = cant)
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         else:
             temp = self.tail
-            temp2 = Vagon (num = num, cant = cant)
+            temp2 = vag
             temp.next = temp2
             temp2.prev = temp
             self.tail = temp2
+            self.tail.estado = 'Ocupado'
 
-    def agregar_medio (self, pos, num, cant):
-        if self.head == None:
-            self.head = Vagon (num = num, cant = cant)
+    def agregar_medio (self, pos, vag):
+        if self.largo == self.vagones:
+            return None
+        elif self.head == None and pos == 1:
+            self.head = vag
+            self.head.estado = 'Ocupado'
             self.tail = self.head
         elif self.head != None and pos == 1:
-            temp = Vagon (num = num, cant = cant)
+            temp = vag
             temp.next = self.head
             self.head.prev = temp
             self.head = temp
+            self.head.estado = 'Ocupado'
         else:
             i = 1
             temp = self.head
@@ -65,7 +75,8 @@ class Tren:
                 temp = temp.next
             izq = temp.prev
             der = temp
-            med = Vagon (num = num, cant = cant)
+            med = vag
+            med.estado = 'Ocupado'
             if i == pos-1:
                 der.next = med
                 med.prev = der
@@ -81,23 +92,49 @@ class Tren:
                 return 'Error'
 
     def quitar_vagones (self):
+        if self.largo == 0:
+            return None
+        self.largo = 0
+        temp = self.tail
+        temp2 =  temp.prev
+        while temp2 != None:
+            temp.estado = 'Libre'
+            temp.next = None
+            temp = temp2
+            temp2 = temp.prev
+            temp.next.prev = None
+        temp.next = None
+        temp.prev = None
         self.head = None
         self.tail = None
-        self.largo = 0
 
     def quitar_vagon (self, pos):
         temp = self.head
         if pos > self.largo:
-            return 'Error'
-        if pos == 1:
-            self.head = temp.next
+            return None
+        if pos == 1 and pos == self.largo:
+            temp.next = None
+            temp.prev = None
+            self.head = None
+            self.tail = None
+            return None
+        elif pos == 1:
+            temp2 = temp.next
+            self.head = temp2
             self.largo -=1
+            temp.next = None
+            temp.estado = 'Libre'
+            temp2.prev = None
+            return None
         elif pos == self.largo:
             temp = self.tail
             temp2 = temp.prev
             self.tail = temp2
             temp2.next = None
             self.largo -=1
+            temp.prev = None
+            temp.estado = 'Libre'
+            return None
         else:
             i = 1
             while i != pos:
@@ -106,10 +143,30 @@ class Tren:
             temp_1 = temp.prev
             temp_1.next = temp.next
             self.largo -=1
+            temp.next = None
+            temp.prev = None
+            temp.estado = 'Libre'
 
-    #Falta llenar vagones automaticos, salir, llegar  
-
-    ###################
+    def llenar(self):
+        global x
+        if self.largo > 0:
+            return None
+        while x > 0:
+            if x > 30:
+                self.agregar_final(v11)
+                v11.estado = 'Ocupado'
+                xb = 50
+            elif x <= 30 and x > 20:
+                self.agregar_final(v6)
+                v6.estado = 'Ocupado'
+                xb = 30
+            else:
+                self.agregar_final(v1)
+                v1.estado = 'Ocupado'
+                xb = 20
+            x -= xb
+x=71
+    #Falta salir, llegar  
             
 class Maquina:
     def __init__(self,num,cap):
@@ -128,8 +185,6 @@ class Vagon:
         return self.estado
     def set_estado(self,estado):
         self.estado=estado
-
-###################################################
 
 m1 = 0
 m2 = 0
