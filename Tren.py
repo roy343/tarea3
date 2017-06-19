@@ -302,24 +302,21 @@ ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
 ventana2.place(x=-5,y=500)
 
 img=cargarImagen("0.gif")
-tren = Label(ventana1,image=img,bg="white")
-tren.place(x=675,y=225)
+tren = Label(ventana1,image=img,bg="blue")
+tren.place(x=1800,y=225)
 tren.image = img
 
-img2 = cargarImagen("8.gif")
-vagon = Label(ventana1, image = img2,bg="white")
-vagon.place(x=575,y=295)
-vagon.image = img2
+vagon = Label(ventana1, image = '',bg="blue")
+vagon.place(x=1800,y=295)
+vagon.image = ''
 
-img3 = cargarImagen("16.gif")
-vagon2 = Label(ventana1, image = img3,bg="white")
-vagon2.place(x=275,y=295)
-vagon2.image = img3
+vagon2 = Label(ventana1, image = '',bg="blue")
+vagon2.place(x=1800,y=295)
+vagon2.image = ''
 
-img4 = cargarImagen("24.gif")
-vagon3 = Label(ventana1, image = img4,bg="white")
-vagon3.place(x=0,y=295)
-vagon3.image = img4
+vagon3 = Label(ventana1, image = '',bg="blue")
+vagon3.place(x=1800,y=295)
+vagon3.image = ''
 
 #Dejo el thread desactivado para trabajar
 def trenanimacion(): 
@@ -398,7 +395,10 @@ def Llegada():
     quieto = False
     i5 = 0
     while quieto != True and i5 < 675:
-        tren.place(x = str(i5),y = 100)
+        tren.place(x = str(i5),y = 225)
+        vagon.place(x = str(i5-100),y = 295)
+        vagon2.place(x = str(i5-400),y = 295)
+        vagon3.place(x = str(i5-675),y = 295)
         i5 += 10
         time.sleep(0.1)
 def iniciar_Llegada():
@@ -408,10 +408,17 @@ def iniciar_Llegada():
 def Salida():
     moviendose = False
     i6 = 675
-    while moviendose != True and i6 < 1300:
-        tren.place(x = str(i6), y = 100)
+    while moviendose != True and i6 < 1800:
+        tren.place(x = str(i6), y = 225)
+        vagon.place(x = str(i6-100),y = 295)
+        vagon2.place(x = str(i6-400),y = 295)
+        vagon3.place(x = str(i6-675),y = 295)
         i6 += 10
         time.sleep(0.1)
+    tren.place(x = 1800, y = 225)
+    vagon.place(x = 1800,y = 295)
+    vagon2.place(x = 1800,y = 295)
+    vagon3.place(x = 1800,y = 295)
 def iniciar_Salida():
     Hiloprueba2 = Thread(target = Salida, args = ())
     Hiloprueba2.start()
@@ -452,6 +459,7 @@ def reloj():#funcion de reloj
     global var4
     global var5
     global pausa
+    global tren
     while pausa == False:
         v.set(var1+var2+str(var3)+var4+str(var5)+var6)
         var5 += 1
@@ -464,6 +472,31 @@ def reloj():#funcion de reloj
             elif var3 == 10 and var2 == "0":
                 var3 = 0
                 var2 = "1"
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 01:10":
+            pausa = True
+            tren_actual = t1
+            tren.place(x=675,y=225)
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 04:10":
+            pausa = True
+            tren_actual = t2
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 07:10":
+            pausa = True
+            tren_actual = t3
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 10:10":
+            pausa = True
+            tren_actual = t4
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 13:10":
+            pausa = True
+            tren_actual = t5
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 16:10":
+            pausa = True
+            tren_actual = t6
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 19:10":
+            pausa = True
+            tren_actual = t7
+        if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 22:10":
+            pausa = True
+            tren_actual = t8
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 24:00":
             var2 = "0"
             var5 = 0
@@ -574,6 +607,7 @@ def vagones():
             canvas_ag.place(x=0,y=0)
 
             def posicion():
+                #####################################estoy en esto
                 ventana_ag.destroy()
     
                 ventana_pos = Toplevel()
@@ -587,17 +621,59 @@ def vagones():
                 Label(canvas_pos,text="...O en la posición:",bg="white",fg="black").place(x=25,y=125)
 
                 pos=Entry(canvas_pos,width=3).place(x=135,y=125)
-        
+
+                def colocar_final():
+                    global tren_actual
+                    ventana_pos.destroy()
+                    img = cargarImagen("8.gif")
+                    if vagon.image == '':
+                        vagon.config(image=img)
+                        vagon.image=img
+                        vagon.place(x=575,y=295)
+                    elif vagon2.image == '':
+                        vagon2.config(image=img)
+                        vagon2.image=img
+                        vagon2.place(x=275,y=295)
+                    else:
+                        vagon3.config(image=img)
+                        vagon3.image=img
+                        vagon3.place(x=0,y=295)
+
+                def colocar_inicio():
+                    global tren_actual
+                    ventana_pos.destroy()
+                    img = cargarImagen("8.gif")
+                    if vagon.image == '':
+                        vagon.config(image=img)
+                        vagon.image=img
+                        vagon.place(x=575,y=295)
+                    elif vagon2.image == '':
+                        vagon2 = vagon                        
+                        vagon2.place(x=275,y=295)
+                        vagon.config(image=img)
+                        vagon.image=img
+                        vagon.place(x=575,y=295)
+                    else:
+                        vag = vagon2
+                        vagon3 = vag
+                        vagon3.place(x=0,y=295)
+                        vag = vagon
+                        vagon2 = vag
+                        vagon2.place(x=275,y=295)
+                        vagon.config(image=img)
+                        vagon.image=img
+                        vagon.place(x=575,y=295)
+                
                 def colocar():
                     ventana_pos.destroy()
 
-                boton1 = Button(canvas_pos, command=colocar,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF")
+                boton1 = Button(canvas_pos, command=colocar_inicio,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF")
                 boton1.place(x=52,y=25)
-                boton2 = Button(canvas_pos, command=colocar,text="      Al final      ", bg = "#000000", fg = "#FFFFFF")
+                boton2 = Button(canvas_pos, command=colocar_final,text="      Al final      ", bg = "#000000", fg = "#FFFFFF")
                 boton2.place(x=55,y=65)
                 boton3 = Button(canvas_pos, command=colocar,text="Aceptar", bg = "#000000", fg = "#FFFFFF")
                 boton3.place(x=70,y=165)
-    
+                #################################
             boton1 = Button(canvas_ag, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF")
             boton1.place(x=50,y=31)
             boton2 = Button(canvas_ag, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF")
@@ -614,10 +690,38 @@ def vagones():
     boton1.place(x=45,y=50)
     boton2 = Button(canvas_vagones, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF")
     boton2.place(x=55,y=125)
+    
+def rutas():
+    if simulacion == True:
+        rutas = Toplevel()
+        rutas.title("Rutas por Hora")
+        rutas.minsize(200,200)
+        rutas.resizable(width=NO,height=NO)
+
+
+        rlbl = Label(rutas,text="TEC - San Jose").place(x=60,y=0)
+        rlbl2 = Label(rutas,text="Salida:             01:00        07:00     ").place(x=0,y=40)
+        rlbl = Label(rutas,text="Llegada:         13:00        19:00    ").place(x=0,y=60)
+        rlbl = Label(rutas,text="TEC - Alajuela").place(x=60,y=120)
+        rlbl5 = Label(rutas,text="Salida:             04:00        10:00     ").place(x=0,y=160)
+        rlbl6 = Label(rutas,text="Llegada:         17:00        22:00    ").place(x=0,y=180)
+
+def llegada():
+    if simulacion == True:
+        tren.config(image='')
+        tren.image=''
+        vagon.config(image='')
+        vagon.image=''
+        vagon2.config(image='')
+        vagon2.image=''
+        vagon3.config(image='')
+        vagon3.image=''
+    else:
+        return None
 
 boton1 = Button(ventana2, command = iniciar,text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF")
 boton1.place(x=505,y=5)
-boton2 = Button(ventana2, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF")
+boton2 = Button(ventana2, command = rutas, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF")
 boton2.place(x=505,y=35)
 boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por ruta", bg = "#000000", fg = "#FFFFFF")
 boton3.place(x=655,y=35)
@@ -625,7 +729,7 @@ boton4 = Button(ventana2, command = vagones, text="      Administración de vago
 boton4.place(x=655,y=5)
 boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF")
 boton5.place(x=505,y=65)
-boton6 = Button(ventana2, text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF")
+boton6 = Button(ventana2, command = llegada,text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF")
 boton6.place(x=655,y=65)
 boton7 = Button(ventana2, command = pausa, text="                Pausar reloj                     ", bg = "#000000", fg = "#FFFFFF")#Agregue 2 botones nuevos
 boton7.place(x=655,y=95)

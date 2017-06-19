@@ -271,3 +271,16 @@ def sim():
         t6 = Tren(int(x[73].replace('\n','')),x[74].replace('\n',''),x[75].replace('\n',''),m2,int(x[76].replace('\n','')))
         t7 = Tren(int(x[77].replace('\n','')),x[78].replace('\n',''),x[79].replace('\n',''),m3,int(x[80].replace('\n','')))
         t8 = Tren(int(x[81].replace('\n','')),x[82].replace('\n',''),x[83].replace('\n',''),m4,int(x[84]))
+        vgs50 = [v11,v12,v13,v14,v15]
+import random
+vagon = 0
+vgs50 = []
+def buscar50():
+    global vgs50
+    global vagon
+    num = random.randint(0, 4)
+    vagon = vgs50[num]
+    if vagon.estado == 'Ocupado':
+        return buscar()
+    else:
+        return vagon
