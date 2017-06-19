@@ -272,58 +272,61 @@ def info_Vagon():
     Label(info,text= "Vagon gris = 20 pasajeros",bg= "black",fg="grey").place(x=10,y=70)
 def pausa():
     pausa = True
-def reloj():
+    
+v=StringVar()#define v como una variable de texto
+Label(ventana2,textvariable=v,bg="black",fg="white").place(x=10,y=65)#Label principal
+
+def reloj():#funcion de reloj
     pausa = False
     while pausa == False:
-        Label(ventana2,text= "HORA = 00:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 01:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 02:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 03:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 04:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 05:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 06:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 07:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 08:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 09:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 10:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 11:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 12:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 13:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 14:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 15:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 16:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 17:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 18:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 19:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 20:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 21:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 22:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        Label(ventana2,text= "HORA = 23:00",bg="black",fg="white").place(x=10,y=65)
-        time.sleep(10)
-        
+        v.set("Hora 00:00")#Defien el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 01:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 02:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 03:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 04:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 05:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 06:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 07:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 08:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 09:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 10:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 11:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 12:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 13:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 14:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 15:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 16:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 17:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 18:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 19:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 20:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 21:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 22:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
+        v.set("Hora 23:00")#Cambia el valor de "v"
+        time.sleep(7)#espera 7 segundos
 def hilo_reloj():
     hilo = Thread(target = reloj,args=())
     hilo.start()
