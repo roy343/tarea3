@@ -8,6 +8,10 @@ import threading
 import winsound
 import random
 
+#Función: Crea un objeto Tren
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 class Tren:
     def __init__(self,num,ruta,hora,maq,vags):
         self.num=num
@@ -196,6 +200,7 @@ class Vagon:
     def set_estado(self,estado):
         self.estado=estado
 
+#Variables globales
 m1 = 0
 m2 = 0
 m3 = 0
@@ -224,6 +229,10 @@ t6 = 0
 t7 = 0
 t8 = 0
 
+#Función: Abre el archivo de texto
+#Entradas: ---
+#Salidas: Trenes, vagones y maquinas
+#Restricciones: ---
 def sim():
     global m1 
     global m2 
@@ -282,43 +291,62 @@ def sim():
         t7 = Tren(int(x[77].replace('\n','')),x[78].replace('\n',''),x[79].replace('\n',''),m3,int(x[80].replace('\n','')))
         t8 = Tren(int(x[81].replace('\n','')),x[82].replace('\n',''),x[83].replace('\n',''),m4,int(x[84]))
 
+#Función: Carga imagenes en una carpeta
+#Entradas: nombre de archivo
+#Salidas: ruta
+#Restricciones: ---
 def cargarImagen(nombre):
     ruta = os.path.join('Material',nombre)
     imagen = PhotoImage(file=ruta)
     return imagen
 
+simulacion = False
+
+#ventana principal
 ventana = Tk()
 ventana.title("Estación TEC")
 ventana.minsize(1300,700)
 ventana.resizable(width=NO,height=NO)
 
-ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="blue")
+#Canvas Estacion
+ventana1=tkinter.Canvas(ventana,width=1400,height=800,bg="white")
 ventana1.place(x=0,y=0)
 
-#ESTACION = cargarImagen("Estacion.gif")
-#Estacion = ventana1.create_image(650,100,image = ESTACION)
+ESTACION = cargarImagen("Estacion.gif")
+Estacion = ventana1.create_image(650,100,image = ESTACION)
 
+#Canvas Consola
 ventana2=tkinter.Canvas(ventana,width=1405,height=200,bg="gray")
 ventana2.place(x=-5,y=500)
 
+#Tren
 img=cargarImagen("0.gif")
-tren = Label(ventana1,image=img,bg="blue")
+tren = Label(ventana1,image=img,bg="white")
 tren.place(x=1800,y=225)
 tren.image = img
 
-vagon = Label(ventana1, image = '',bg="blue")
+#Vagon1
+img=cargarImagen("8.gif")
+vagon = Label(ventana1, image = img,bg="white")
 vagon.place(x=1800,y=295)
-vagon.image = ''
+vagon.image = img
 
-vagon2 = Label(ventana1, image = '',bg="blue")
+#Vagon2
+img=cargarImagen("16.gif")
+vagon2 = Label(ventana1, image = img,bg="white")
 vagon2.place(x=1800,y=295)
-vagon2.image = ''
+vagon2.image = img
 
-vagon3 = Label(ventana1, image = '',bg="blue")
+#Vagon3
+img=cargarImagen("24.gif")
+vagon3 = Label(ventana1, image = img,bg="white")
 vagon3.place(x=1800,y=295)
-vagon3.image = ''
+vagon3.image = img
 
-#Dejo el thread desactivado para trabajar
+#Función: Animacion del tren
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def trenanimacion(): 
     i = 0
     try:
@@ -336,6 +364,10 @@ def ver_trenanimacion():
     trent = Thread(target=trenanimacion, args=())
     trent.start()
 
+#Función: Animaciones de los vagones
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def vagon1animacion(): 
     i2 = 8
     try:
@@ -352,7 +384,6 @@ def vagon1animacion():
 def ver_vagon1animacion():
     trent2 = Thread(target=vagon1animacion, args=())
     trent2.start()
-
 def vagon2animacion(): 
     i3 = 16
     try:
@@ -369,7 +400,6 @@ def vagon2animacion():
 def ver_vagon2animacion():
     trent3 = Thread(target=vagon2animacion, args=())
     trent3.start()
-
 def vagon3animacion(): 
     i4 = 24
     try:
@@ -387,10 +417,10 @@ def ver_vagon3animacion():
     trent4 = Thread(target=vagon3animacion, args=())
     trent4.start()
 
-simulacion = False
-clientes = 0
-pausa = True
-
+#Función: Llega el tren
+#Entradas: ---
+#Salidas: ---
+#Restricciones:--- 
 def Llegada():
     quieto = False
     i5 = 0
@@ -404,7 +434,11 @@ def Llegada():
 def iniciar_Llegada():
     Hiloprueba = Thread(target = Llegada, args=())
     Hiloprueba.start()
-    
+
+#Función: Sale el tren
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def Salida():
     moviendose = False
     i6 = 675
@@ -420,9 +454,15 @@ def Salida():
     vagon2.place(x = 1800,y = 295)
     vagon3.place(x = 1800,y = 295)
 def iniciar_Salida():
+    pausa = False
     Hiloprueba2 = Thread(target = Salida, args = ())
     Hiloprueba2.start()
-    
+    hilo_reloj()
+
+#Función: Da la informacion de los vagones
+#Entradas: ---
+#Salidas: ventana
+#Restricciones: ---    
 def info_Vagon(): 
     info = Toplevel()
     info.title("Informacion de los vagones")
@@ -433,7 +473,13 @@ def info_Vagon():
     Label(info,text= "Vagon verde = 50 pasajeros",bg="black",fg="green").place(x=10,y=10)
     Label(info,text= "Vagon marron = 30 pasajeros",bg="black",fg="brown").place(x=10,y=40)
     Label(info,text= "Vagon gris = 20 pasajeros",bg= "black",fg="grey").place(x=10,y=70)
-    
+
+pausa = True
+
+#Función: Detiene/Reproduce el tiempo
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---    
 def pausa():
     global pausa
     if pausa == False:
@@ -441,10 +487,11 @@ def pausa():
     else:
         pausa = False
         hilo_reloj()
-    
+
+        
+#Variables del reloj
 v=StringVar()#define v como una variable de texto
 Label(ventana2,textvariable=v,bg="black",fg="white").place(x=10,y=65)#Label principal
-
 var1 = "Hora "
 var2 = "0"
 var3 = 0
@@ -452,6 +499,10 @@ var4 = ":"
 var5 = 0
 var6 = "0"
 
+#Función: Reloj
+#Entradas: ---
+#Salidas: ---
+#Restricciones:--- 
 def reloj():#funcion de reloj
     global var1
     global var2
@@ -475,28 +526,35 @@ def reloj():#funcion de reloj
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 01:10":
             pausa = True
             tren_actual = t1
-            tren.place(x=675,y=225)
+            tren.place(x=675,y=225)            
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 04:10":
             pausa = True
             tren_actual = t2
+            tren.place(x=675,y=225)
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 07:10":
             pausa = True
             tren_actual = t3
+            tren.place(x=675,y=225)
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 10:10":
             pausa = True
             tren_actual = t4
+            tren.place(x=675,y=225)
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 13:10":
             pausa = True
             tren_actual = t5
+            iniciar_Llegada()
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 16:10":
             pausa = True
             tren_actual = t6
+            iniciar_Llegada()
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 19:10":
             pausa = True
             tren_actual = t7
+            iniciar_Llegada()
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 22:10":
             pausa = True
             tren_actual = t8
+            iniciar_Llegada()
         if var1+var2+str(var3)+var4+str(var5)+var6 == "Hora 24:00":
             var2 = "0"
             var5 = 0
@@ -506,6 +564,10 @@ def hilo_reloj():
     hilo = Thread(target = reloj,args=())
     hilo.start()
 
+#Función: Inicia la simulacion
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def iniciar ():
     global simulacion
     global pausa
@@ -517,6 +579,12 @@ def iniciar ():
         pausa = False
         hilo_reloj()
 
+clientes = 0
+
+#Función: Da un valor aleatorio de pasajeros
+#Entradas: ---
+#Salidas: Cantidad de pasajeros en un label
+#Restricciones: ---
 def pasajeros():
     global simulacion
     global clientes
@@ -529,6 +597,10 @@ def pasajeros():
     else:
         return None
 
+#Función: Administración de los vagones
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def vagones():
     global simulacion
     if simulacion == False:
@@ -540,7 +612,7 @@ def vagones():
 
     canvas_vagones = Canvas(ventana_vagones,width=200,height=200,bg="white")
     canvas_vagones.place(x=0,y=0)
-
+    #Modo automatico
     def vagon_automatico():
         ventana_vagones.destroy()
         
@@ -562,7 +634,7 @@ def vagones():
         boton1.place(x=35,y=50)
         boton2 = Button(canvas_auto, command=quitar_auto,text="      Quitar vagones      ", bg = "#000000", fg = "#FFFFFF")
         boton2.place(x=35,y=125)
-
+    #Modo Manual
     def vagon_manual():
         ventana_vagones.destroy()
         
@@ -607,7 +679,6 @@ def vagones():
             canvas_ag.place(x=0,y=0)
 
             def posicion():
-                #####################################estoy en esto
                 ventana_ag.destroy()
     
                 ventana_pos = Toplevel()
@@ -638,42 +709,17 @@ def vagones():
                         vagon3.config(image=img)
                         vagon3.image=img
                         vagon3.place(x=0,y=295)
-
-                def colocar_inicio():
-                    global tren_actual
-                    ventana_pos.destroy()
-                    img = cargarImagen("8.gif")
-                    if vagon.image == '':
-                        vagon.config(image=img)
-                        vagon.image=img
-                        vagon.place(x=575,y=295)
-                    elif vagon2.image == '':
-                        vagon2 = vagon                        
-                        vagon2.place(x=275,y=295)
-                        vagon.config(image=img)
-                        vagon.image=img
-                        vagon.place(x=575,y=295)
-                    else:
-                        vag = vagon2
-                        vagon3 = vag
-                        vagon3.place(x=0,y=295)
-                        vag = vagon
-                        vagon2 = vag
-                        vagon2.place(x=275,y=295)
-                        vagon.config(image=img)
-                        vagon.image=img
-                        vagon.place(x=575,y=295)
                 
                 def colocar():
                     ventana_pos.destroy()
 
-                boton1 = Button(canvas_pos, command=colocar_inicio,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF")
+                boton1 = Button(canvas_pos, command=colocar,text="      Al inicio      ", bg = "#000000", fg = "#FFFFFF")
                 boton1.place(x=52,y=25)
                 boton2 = Button(canvas_pos, command=colocar_final,text="      Al final      ", bg = "#000000", fg = "#FFFFFF")
                 boton2.place(x=55,y=65)
                 boton3 = Button(canvas_pos, command=colocar,text="Aceptar", bg = "#000000", fg = "#FFFFFF")
                 boton3.place(x=70,y=165)
-                #################################
+                
             boton1 = Button(canvas_ag, command=posicion,text="      20 personas      ", bg = "#000000", fg = "#FFFFFF")
             boton1.place(x=50,y=31)
             boton2 = Button(canvas_ag, command=posicion,text="      30 personas      ", bg = "#000000", fg = "#FFFFFF")
@@ -690,7 +736,11 @@ def vagones():
     boton1.place(x=45,y=50)
     boton2 = Button(canvas_vagones, command=vagon_manual, text="      Manual      ", bg = "#000000", fg = "#FFFFFF")
     boton2.place(x=55,y=125)
-    
+
+#Función: Da las rutas por hora
+#Entradas: ---
+#Salidas: ---
+#Restricciones:---     
 def rutas():
     if simulacion == True:
         rutas = Toplevel()
@@ -706,19 +756,26 @@ def rutas():
         rlbl5 = Label(rutas,text="Salida:             04:00        10:00     ").place(x=0,y=160)
         rlbl6 = Label(rutas,text="Llegada:         17:00        22:00    ").place(x=0,y=180)
 
+#Función: Registra la llegada del tren
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 def llegada():
+    global pausa
     if simulacion == True:
-        tren.config(image='')
-        tren.image=''
-        vagon.config(image='')
-        vagon.image=''
-        vagon2.config(image='')
-        vagon2.image=''
-        vagon3.config(image='')
-        vagon3.image=''
+        tren.place(x=1800,y=225)
+        vagon2.place(x=1800,y=295)
+        vagon.place(x=1800,y=295)
+        vagon3.place(x=1800,y=295)
+        pausa = False
+        hilo_reloj()
     else:
         return None
 
+#Función: Botones y labels de la consola
+#Entradas: ---
+#Salidas: ---
+#Restricciones: ---
 boton1 = Button(ventana2, command = iniciar,text="      Iniciar Simulación      ", bg = "#000000", fg = "#FFFFFF")
 boton1.place(x=505,y=5)
 boton2 = Button(ventana2, command = rutas, text="        Rutas por horas        ", bg = "#000000", fg = "#FFFFFF")
@@ -727,18 +784,16 @@ boton3 = Button(ventana2, command = pasajeros, text="Estimación de demanda por 
 boton3.place(x=655,y=35)
 boton4 = Button(ventana2, command = vagones, text="      Administración de vagones   ", bg = "#000000", fg = "#FFFFFF")
 boton4.place(x=655,y=5)
-boton5 = Button(ventana2, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF")
+boton5 = Button(ventana2, command = iniciar_Salida, text="          Salida de tren          ", bg = "#000000", fg = "#FFFFFF")
 boton5.place(x=505,y=65)
 boton6 = Button(ventana2, command = llegada,text="               Llegada de tren               ", bg = "#000000", fg = "#FFFFFF")
 boton6.place(x=655,y=65)
-boton7 = Button(ventana2, command = pausa, text="                Pausar reloj                     ", bg = "#000000", fg = "#FFFFFF")#Agregue 2 botones nuevos
+boton7 = Button(ventana2, command = pausa, text="                Pausar reloj                     ", bg = "#000000", fg = "#FFFFFF")
 boton7.place(x=655,y=95)
 boton8 = Button(ventana2, command = info_Vagon, text="                Info de Vagones             ", bg = "#000000", fg = "#FFFFFF")
 boton8.place(x=655,y=125)
 boton9 = Button(ventana2, command = iniciar_Llegada, text="                Llegada Pureba             ", bg = "#000000", fg = "#FFFFFF")
 boton9.place(x=505,y=125)
-boton9 = Button(ventana2, command = iniciar_Salida, text="                Salida Pureba             ", bg = "#000000", fg = "#FFFFFF")
-boton9.place(x=505,y=155)
 Label(ventana2,text="Hora de llegada/salida:",bg="black",fg="white").place(x=10,y=5)
 Label(ventana2,text="Cantidad de personas que van a viajar:",bg="black",fg="white").place(x=10,y=30)
 
